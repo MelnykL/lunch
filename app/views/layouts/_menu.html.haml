@@ -1,0 +1,13 @@
+%nav.navbar.navbar-light.bg-light
+  .navbar-brand= link_to "GoodFood", root_path
+  - if user_signed_in? && current_user.admin?
+    %ul.navbar-nav.mr-auto
+      %li.nav-item= link_to "Menu", menu_items_path
+  - if user_signed_in?
+    .pull-right
+      = link_to current_user.username, edit_user_registration_path
+      = link_to "Sign out", destroy_user_session_path, method: :delete, class: "btn btn-info ml-2"
+  - else
+    .pull-right
+      = link_to "Sign in", new_user_session_path, class: "btn btn-info"
+      = link_to "Sign up", new_user_registration_path, class: "btn btn-info"

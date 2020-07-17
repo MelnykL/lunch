@@ -1,0 +1,14 @@
+= form_with model: @menu_item, class: "form-group" do |f|
+  .mt-3
+    = f.label :name
+    = f.text_field :name, class: "form-control"
+  .mt-3
+    = f.label :price
+    = f.number_field :price, class: "form-control"
+  .mt-3
+    =f.select(:course, options_for_select(MenuItem.courses.map{|k, v| [k.humanize.capitalize, k] }), {}, {class: "form-control"})
+  .mt-3
+    .mb-1= f.label :image
+    = f.file_field :image, class: "btn btn-outline-info"
+  .mt-3
+    = f.submit action_name.capitalize + " Item", class: "btn btn-success"

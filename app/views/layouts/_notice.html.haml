@@ -1,0 +1,7 @@
+- if flash.present?
+  %div.row
+    %div.col-lg-12
+      - flash.each do |type, msg|
+        %div.alert-dismissible.alert{class: "alert-warning", role: "alert"}
+          %button.close{type: 'button', 'data-dismiss': 'alert', 'aria-hidden': true} &times;
+          %p= msg

@@ -1,0 +1,26 @@
+= link_to "Add new item", new_menu_item_path, class: "btn btn-info mb-2"
+.card
+  .card-header
+    %h4= "Menu items for " + current_day
+  .card-body
+    %table.table
+      %thead.thead-dark
+        %tr
+          %th
+          %th Name
+          %th Price
+          %th Course
+          %th Actions
+      %tbody
+        - @menu_items.each do |item|
+          %tr
+            - if item.image.attached?
+              %td= image_tag(item.image.variant(resize: "40x40!"))
+            - else
+              %td
+            %td= item.name
+            %td= item.price.to_s + " $"
+            %td= item.course
+            %td
+              = link_to "Edit", edit_menu_item_path(item), class: "badge badge-primary"
+              = link_to "Delete", menu_item_path(item), method: :delete, class: "badge badge-danger", data: {confirm: "Are you sure?"}

@@ -1,0 +1,21 @@
+#accordion_by_day.accordion
+  .card
+    - days.each do |day|
+      .card-header{"id" => "heading_#{day}"}
+        %h2.mb-0
+          %button.btn.btn-link.btn-block.text-left{"aria-controls" => "collapse_#{day}", "aria-expanded" => "true", 
+          "data-target" => "#collapse_#{day}", "data-toggle" => "collapse", :type => "button"}= day.strftime("%A %d.%m.%Y")
+      .collapse{"id" => "collapse_#{day}", "aria-labelledby" => "heading_#{day}", "data-parent" => "#accordion_by_day"}
+        .card-body
+          %h6 Course First
+          %ul.list-group
+            .row
+              - select_days(day, "one").each do |day_item|
+                .col-md-9
+                  %li.list-group-item.d-flex.justify-content-between.align-items-center
+                    = day_item.name
+                    %span.badge.badge-primary.badge-pill.pull_right= day_item.price
+                .col-md-3
+                  
+          %h6 Course Main
+          %h6 Course Drink
