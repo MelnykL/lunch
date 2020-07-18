@@ -1,0 +1,13 @@
+- if @cart.nil?
+  .card
+    .card-header
+      %h5 You didn't add anything. Go to Menu
+    .card-body
+      = link_to "Menu", root_path, class: "btn btn-info"
+- else
+  - @cart.menu_items.each do |item|
+    = item.name
+    = item.price
+  %p.strong= "Total:  " + Cart.total_price(@cart).to_s
+  = link_to "Confirm", confirm_cart_path(@cart), method: :post, class: "btn btn-success"
+  = link_to "Clear", cart_path(@cart), method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" }

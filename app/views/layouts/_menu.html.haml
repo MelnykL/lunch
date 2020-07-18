@@ -5,6 +5,7 @@
       %li.nav-item= link_to "Menu", menu_items_path
   - if user_signed_in?
     .pull-right
+      = link_to "Cart", carts_path
       = link_to current_user.username, edit_user_registration_path
       = link_to "Sign out", destroy_user_session_path, method: :delete, class: "btn btn-info ml-2"
   - else

@@ -42,6 +42,19 @@ class MenuItemsController < ApplicationController
     end
   end
 
+  def add_to_cart
+    @cart = current_user.cart || current_user.create_cart
+    if MenuItem.check_count_items_for_course(@cart, menu_item) == 0
+      @cart.menu_items << menu_item
+      @cart.save
+      flash[:notice]= "#{menu_item.name} add to the cart!"
+      redirect_to root_path
+    else
+      flash[:notice]= "Sorry you add one possition of this course already. Please, check your cart!"
+      redirect_to root_path
+    end
+  end
+
   private
 
   def menu_item_params
