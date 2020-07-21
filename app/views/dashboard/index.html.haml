@@ -1,6 +1,6 @@
 #accordion_by_day.accordion
   .card
-    - days.each do |day|
+    - @days.each do |day|
       .card-header{"id" => "heading_#{day}"}
         %h2.mb-0
           %button.btn.btn-link.btn-block.text-left{"aria-controls" => "collapse_#{day}", "aria-expanded" => "true", 
@@ -10,12 +10,33 @@
           %h6 Course First
           %ul.list-group
             .row
-              - select_days(day, "one").each do |day_item|
+              - select_days(day, 0).each do |day_item|
                 .col-md-9
                   %li.list-group-item.d-flex.justify-content-between.align-items-center
                     = day_item.name
-                    %span.badge.badge-primary.badge-pill.pull_right= day_item.price
+                    %span.badge.badge-primary.badge-pill.pull_right= day_item.price.to_s + " $"
                 .col-md-3
-                  
+                  - if check_day(day)
+                    = link_to "Want It", add_to_cart_menu_item_path(day_item), method: :post, class: "btn btn-success"             
           %h6 Course Main
+          %ul.list-group
+            .row
+              - select_days(day, 1).each do |day_item|
+                .col-md-9
+                  %li.list-group-item.d-flex.justify-content-between.align-items-center
+                    = day_item.name
+                    %span.badge.badge-primary.badge-pill.pull_right= day_item.price.to_s + " $"
+                .col-md-3
+                  - if check_day(day)
+                    = link_to "Want It", add_to_cart_menu_item_path(day_item), method: :post, class: "btn btn-success"          
           %h6 Course Drink
+          %ul.list-group
+            .row
+              - select_days(day, 2).each do |day_item|
+                .col-md-9
+                  %li.list-group-item.d-flex.justify-content-between.align-items-center
+                    = day_item.name
+                    %span.badge.badge-primary.badge-pill.pull_right= day_item.price.to_s + " $"
+                .col-md-3
+                  - if check_day(day)
+                    = link_to "Want It", add_to_cart_menu_item_path(day_item), method: :post, class: "btn btn-success"

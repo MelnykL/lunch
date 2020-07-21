@@ -32,6 +32,9 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'cancancan', '~> 3.1'
 gem 'devise', '~> 4.7', '>= 4.7.2'
 gem 'faker', '~> 2.13'
+gem "font-awesome-rails"
+gem 'fast_jsonapi'
+gem 'ransack'
 gem "mini_magick"
 gem 'haml', '~> 5.1', '>= 5.1.2'
 
@@ -42,6 +45,7 @@ group :development, :test do
     gem lib, git: "https://github.com/rspec/#{lib}.git", branch: 'master'
   end
   gem 'rails-controller-testing'
+  gem 'pry'
 end
 
 group :development do
@@ -60,6 +64,7 @@ group :test do
   gem 'factory_bot_rails'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
+  gem 'shoulda-matchers'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

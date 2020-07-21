@@ -1,0 +1,40 @@
+.row
+  .col-md-6
+    .card
+      .card-header
+        %h2 Orders
+      .card-body
+        %table.table
+          %thead
+            %tr
+              %th ID
+              %th User Email
+              %th= sort_link(@q, :total_price, 'Total Price', default_order: :desc) 
+              %th= sort_link(@q, :created_at, 'Date', default_order: :desc)
+          %tbody
+            - @orders.each do |order|
+              %tr
+                %td= order.id
+                %td= order.user.email
+                %td= order.total_price
+                %td= order.created_at.strftime("%d.%m.%Y")
+  .col-md-6 
+    .card
+      .card-header
+        %h2= "Today's Orders. " + "Total Price: " + @todays_orders.sum(:total_price).to_s
+      .card-body
+        .row
+          - @todays_orders.includes(:menu_items).each do |t_order|
+            .col-md-6
+              .card
+                .card-header
+                  %h4= t_order.user.email
+                .card-body
+                  %ul.list-group
+                    - t_order.menu_items.each do |menu_item|
+                      %li.list-group-item.d-flex.justify-content-between.align-items-center
+                        = menu_item.name
+                        %span.badge.badge-primary.badge-pill= menu_item.price.to_s + " $"
+                .card-footer
+                  %h6 Order's Price: 
+                  = t_order.total_price.to_s
