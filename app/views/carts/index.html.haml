@@ -1,0 +1,18 @@
+- if @cart.nil?
+  .card
+    .card-header
+      %h5 You didn't add anything. Go to Menu
+    .card-body
+      = link_to "Menu", root_path, class: "btn btn-info"
+- else
+  .card
+    .card-header
+      %h2 Your Cart
+    .card-body
+      - @cart.menu_items.each do |item|
+        %li.list-group-item.d-flex.justify-content-between.align-items-center
+          = item.name
+          %span.badge.badge-primary.badge-pill= item.price.to_s + " $"
+      %p.strong.mt-2.pull-right= "Total:  " + Cart.total_price(@cart).to_s
+      = link_to "Confirm", confirm_cart_path(@cart), method: :post, class: "btn btn-success mt-4"
+      = link_to "Clear", cart_path(@cart), method: :delete, class: "btn btn-danger mt-4", data: { confirm: "Are you sure?" }

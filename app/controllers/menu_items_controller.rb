@@ -1,4 +1,6 @@
 class MenuItemsController < ApplicationController
+  load_and_authorize_resource except: [:add_to_cart]
+
   def index
     @menu_items = MenuItem.where(day: Date.today).group(:course, :id)
   end
@@ -39,6 +41,19 @@ class MenuItemsController < ApplicationController
     else
       flash[:notice] = "Can't Destroy. Please Try Again"
       redirect_to menu_items_path
+    end
+  end
+
+  def add_to_cart
+    @cart = current_user.cart || current_user.create_cart
+    if MenuItem.check_count_items_for_course(@cart, menu_item) == 0
+      @cart.menu_items << menu_item
+      @cart.save
+      flash[:notice]= "#{menu_item.name} add to the cart!"
+      redirect_to root_path
+    else
+      flash[:notice]= "Sorry you add one possition of this course already. Please, check your cart!"
+      redirect_to root_path
     end
   end
 

@@ -1,5 +1,5 @@
 class DashboardController < ApplicationController
   def index
-    @days = MenuItem.group(:day).order(day: :desc)
+    @days = MenuItem.pluck(:day).uniq.reverse.last(7)
   end
 end
