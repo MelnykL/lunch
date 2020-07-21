@@ -1,4 +1,6 @@
 class MenuItemsController < ApplicationController
+  load_and_authorize_resource except: [:add_to_cart]
+
   def index
     @menu_items = MenuItem.where(day: Date.today).group(:course, :id)
   end

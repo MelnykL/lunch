@@ -14,4 +14,12 @@ Rails.application.routes.draw do
     end
   end
   
+  resources :users, only: [:index, :destroy]
+  resources :orders
+
+  namespace :api do
+    namespace :v1 do
+      resources :orders
+    end
+  end
 end

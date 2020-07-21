@@ -1,6 +1,6 @@
 #accordion_by_day.accordion
   .card
-    - days.each do |day|
+    - @days.each do |day|
       .card-header{"id" => "heading_#{day}"}
         %h2.mb-0
           %button.btn.btn-link.btn-block.text-left{"aria-controls" => "collapse_#{day}", "aria-expanded" => "true", 

@@ -1,14 +1,19 @@
 require 'rails_helper'
 
-# Specs in this file have access to a helper object that includes
-# the DashboardHelper. For example:
-#
-# describe DashboardHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
 RSpec.describe DashboardHelper, type: :helper do
+  describe "helpers" do
+    let(:menu_item) { create(:menu_item) }
+    it "count must be 1" do
+      items = select_days(Date.today, menu_item.course)
+      expect(items.count).to eq(1)
+    end
+
+    it "count must be 0" do
+      items = select_days(Date.yesterday, menu_item.course)
+      expect(items.count).to eq(0)
+    end
+
+    it { expect(check_day(Date.today)).to be true}
+    it { expect(check_day(Date.yesterday)).to be false}
+  end
 end

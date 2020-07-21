@@ -8,7 +8,7 @@ RSpec.describe "MenuItems", type: :request do
     end
   end
 
-  context "for admin" do
+  context "Sign in" do
     let(:admin) { create(:admin) }
     let(:menu_item) { create(:menu_item) }
     before(:each) do
@@ -29,7 +29,7 @@ RSpec.describe "MenuItems", type: :request do
       get new_menu_item_path
       expect(response).to render_template(:new)
   
-      post "/menu_items", params: {"menu_item"=>{"name"=>"New test", "price"=>"10", "course"=>"three"}}
+      post "/menu_items", params: {"menu_item"=>{"name"=>"New test", "price"=>"10", "course"=>"Drink"}}
       expect(response).to redirect_to menu_items_path
       follow_redirect!
       expect(response).to render_template(:index)
@@ -39,7 +39,7 @@ RSpec.describe "MenuItems", type: :request do
       get edit_menu_item_path(menu_item)
       expect(response).to render_template(:edit)
   
-      put menu_item_path(menu_item), params: {"menu_item"=>{"name"=>"New name", "price"=>"10", "course"=>"three"}}
+      put menu_item_path(menu_item), params: {"menu_item"=>{"name"=>"New name", "price"=>"10", "course"=>"Drink"}}
       expect(response).to redirect_to menu_items_path
       follow_redirect!
       expect(response).to render_template(:index)
@@ -50,6 +50,11 @@ RSpec.describe "MenuItems", type: :request do
       expect(response).to redirect_to menu_items_path
       follow_redirect!
       expect(response).to render_template(:index)
+    end
+
+    it "add menu item to cart" do
+      post add_to_cart_menu_item_path(menu_item)
+      expect(response).to redirect_to root_path
     end
   end
 end

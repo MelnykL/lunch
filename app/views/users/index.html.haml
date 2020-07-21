@@ -1,0 +1,20 @@
+.card
+  .card-header
+    %h2 Users
+  .cars-body
+    %table.table
+      %thead.thead-dark
+        %tr
+          %th Name
+          %th Email
+          %th Registered
+          %th Delete
+      %tbody
+        - @users.each do |user|
+          %tr
+            %td= user.username
+            %td= user.email
+            %td= user.created_at.strftime("%d.%m.%Y")
+            %td
+              - if current_user != user
+                = link_to "Delete", user_path(user), method: :delete, class: "badge badge-danger", data: {confirm: "Are you sure?"}
