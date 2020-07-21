@@ -53,6 +53,7 @@ test:
 #
 production:
   <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
   database: lunch_production
   username: lunch
   password: <%= ENV['LUNCH_DATABASE_PASSWORD'] %>
