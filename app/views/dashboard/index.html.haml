@@ -7,36 +7,45 @@
           "data-target" => "#collapse_#{day}", "data-toggle" => "collapse", :type => "button"}= day.strftime("%A %d.%m.%Y")
       .collapse{"id" => "collapse_#{day}", "aria-labelledby" => "heading_#{day}", "data-parent" => "#accordion_by_day"}
         .card-body
-          %h6 Course First
+          %h6.alert.alert-primary.mb-2.mt-2 Course First
           %ul.list-group
             .row
               - select_days(day, 0).each do |day_item|
-                .col-md-9
+                .col-md-6
                   %li.list-group-item.d-flex.justify-content-between.align-items-center
                     = day_item.name
                     %span.badge.badge-primary.badge-pill.pull_right= day_item.price.to_s + " $"
+                .col-md-3
+                  - if day_item.image.attached?
+                    = image_tag(day_item.image.variant(resize: "70x70!"), class: "rounded-circle")
                 .col-md-3
                   - if check_day(day)
                     = link_to "Want It", add_to_cart_menu_item_path(day_item), method: :post, class: "btn btn-success"             
-          %h6 Course Main
+          %h6.alert.alert-info.mb-2.mt-2 Course Main
           %ul.list-group
             .row
               - select_days(day, 1).each do |day_item|
-                .col-md-9
+                .col-md-6
                   %li.list-group-item.d-flex.justify-content-between.align-items-center
                     = day_item.name
                     %span.badge.badge-primary.badge-pill.pull_right= day_item.price.to_s + " $"
                 .col-md-3
+                  - if day_item.image.attached?
+                    = image_tag(day_item.image.variant(resize: "70x70!"), class: "rounded-circle")
+                .col-md-3
                   - if check_day(day)
                     = link_to "Want It", add_to_cart_menu_item_path(day_item), method: :post, class: "btn btn-success"          
-          %h6 Course Drink
+          %h6.alert.alert-danger.mb-2.mt-2 Course Drink
           %ul.list-group
             .row
               - select_days(day, 2).each do |day_item|
-                .col-md-9
+                .col-md-6
                   %li.list-group-item.d-flex.justify-content-between.align-items-center
                     = day_item.name
                     %span.badge.badge-primary.badge-pill.pull_right= day_item.price.to_s + " $"
+                .col-md-3
+                  - if day_item.image.attached?
+                    = image_tag(day_item.image.variant(resize: "70x70!"), class: "rounded-circle")
                 .col-md-3
                   - if check_day(day)
                     = link_to "Want It", add_to_cart_menu_item_path(day_item), method: :post, class: "btn btn-success"
